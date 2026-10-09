@@ -6,6 +6,7 @@
   Il link condiviso è corto: https://epischope77.github.io/star_strek-sfida/?s=100968xv1
   (9 ottobre, 6 indizi su 8, un tiro sbagliato poi il gol, un aiuto: i
   quadratini li rifà la pagina). Capisce anche i link vecchi ?d=…&q=….
+  Il tris (D146): ?s=1010Tx--ox---x = 10 ottobre, le nove caselle (x ❌, o ⭕, - vuota).
   Il tasto apre l'app sulla sfida del giorno (stadium://sfida, passando
   dall'intent di Android: se l'app non c'è, Chrome apre la pagina dello store).
 -->
@@ -27,7 +28,7 @@
   .data { color: var(--tenue); margin-bottom: 18px; }
   .scheda { background: var(--pannello); border: 1px solid var(--bordo); border-radius: 16px; padding: 18px; margin-bottom: 16px; }
   .mister { font-size: 40px; }
-  .quadratini { font-size: 26px; letter-spacing: 2px; margin: 12px 0; word-break: break-all; }
+  .quadratini { font-size: 26px; letter-spacing: 2px; margin: 12px 0; word-break: break-all; white-space: pre-line; line-height: 1.25; }
   p { line-height: 1.5; margin: 8px 0; }
   .tasto { display: block; background: var(--oro); color: #1a1200; font-weight: 900; font-size: 20px;
            text-decoration: none; border-radius: 14px; padding: 16px; margin: 14px 0 8px; letter-spacing: 1px; }
@@ -65,13 +66,26 @@
         + (Number(c[6]) > 0 ? ' ' + new Array(Number(c[6]) + 1).join('💡') : '');
     }
   }
+  // il tris: MMGG + T + nove caselle
+  var t = /^(\d{2})(\d{2})T([xo-]{9})$/.exec(p.get('s') || '');
+  var tris = !!t;
+  if (t) {
+    var oggiT = new Date(), annoT = oggiT.getFullYear();
+    if (Number(t[1]) > oggiT.getMonth() + 1) annoT -= 1;
+    d = annoT + '-' + t[1] + '-' + t[2];
+    var segni = { x: '❌', o: '⭕', '-': '⬜' };
+    q = [0, 3, 6].map(function (i) { return t[3].slice(i, i + 3).split('').map(function (k) { return segni[k]; }).join(''); }).join('\n');
+    document.getElementById('invito').innerHTML = 'Un tuo amico ti sfida al <b>tris del giorno</b>: nove caselle, in ognuna un calciatore misterioso. Indovinalo e la casella è tua ❌, sbaglia ed è ⭕. Fai tris!';
+  }
   if (/^\d{4}-\d{2}-\d{2}$/.test(d)) {
     var parti = d.split('-');
     document.getElementById('data').textContent = 'del ' + parti[2] + '/' + parti[1] + '/' + parti[0];
   }
   if (q && q.length < 80) {
     document.getElementById('quadratini').textContent = q;
-    document.getElementById('spiega').textContent = 'Il suo risultato: 🟨 indizi aperti, 🟥 tiri sbagliati, 🟩 gol, 💡 aiuti usati.';
+    document.getElementById('spiega').textContent = tris
+      ? 'Il suo risultato: ❌ giocatore preso, ⭕ mancato, ⬜ casella non giocata.'
+      : 'Il suo risultato: 🟨 indizi aperti, 🟥 tiri sbagliati, 🟩 gol, 💡 aiuti usati.';
   }
   // Android: l'intent apre l'app sulla sfida, o lo store se l'app non c'è
   if (/android/i.test(navigator.userAgent)) {
