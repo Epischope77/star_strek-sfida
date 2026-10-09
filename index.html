@@ -2,8 +2,10 @@
 <!--
   STADIUM — la pagina del link "sfida un amico" (D145, 09/10/2026)
   Va pubblicata su GitHub Pages in un repository PUBBLICO a parte
-  (Epischope77/stadium-sfida): qui niente codice del gioco, solo la pagina.
-  Il link condiviso è  https://epischope77.github.io/stadium-sfida/?d=2026-10-09&q=🟨🟨⬛…
+  (Epischope77/star_strek-sfida): qui niente codice del gioco, solo la pagina.
+  Il link condiviso è corto: https://epischope77.github.io/star_strek-sfida/?s=100968xv1
+  (9 ottobre, 6 indizi su 8, un tiro sbagliato poi il gol, un aiuto: i
+  quadratini li rifà la pagina). Capisce anche i link vecchi ?d=…&q=….
   Il tasto apre l'app sulla sfida del giorno (stadium://sfida, passando
   dall'intent di Android: se l'app non c'è, Chrome apre la pagina dello store).
 -->
@@ -46,10 +48,23 @@
   <p class="nota" id="nota">Si apre l'app Stadium. Se non ce l'hai ancora, presto la trovi sullo store.</p>
 </main>
 <script>
-  // i dati arrivano dal link: data (d) e quadratini (q). Nessun nome: è una sfida.
+  // i dati arrivano dal link. Nessun nome: è una sfida.
   var p = new URLSearchParams(location.search);
   var d = p.get('d') || '';
   var q = p.get('q') || '';
+  // il codice corto: MMGG, indizi aperti, indizi totali (base 36), tiri (x v t), aiuti
+  var c = /^(\d{2})(\d{2})([0-9a-z])([0-9a-z])([xvt]{0,3})(\d?)$/.exec(p.get('s') || '');
+  if (c) {
+    var oggi = new Date(), anno = oggi.getFullYear();
+    if (Number(c[1]) > oggi.getMonth() + 1) anno -= 1;   // un link di dicembre letto a gennaio
+    d = anno + '-' + c[1] + '-' + c[2];
+    var n = parseInt(c[3], 36), tot = parseInt(c[4], 36);
+    if (tot >= 1 && tot <= 12 && n <= tot) {
+      q = new Array(n + 1).join('🟨') + new Array(tot - n + 1).join('⬛') + ' '
+        + c[5].replace(/x/g, '🟥').replace(/v/g, '🟩').replace(/t/g, '⏱️')
+        + (Number(c[6]) > 0 ? ' ' + new Array(Number(c[6]) + 1).join('💡') : '');
+    }
+  }
   if (/^\d{4}-\d{2}-\d{2}$/.test(d)) {
     var parti = d.split('-');
     document.getElementById('data').textContent = 'del ' + parti[2] + '/' + parti[1] + '/' + parti[0];
