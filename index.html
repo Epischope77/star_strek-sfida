@@ -7,7 +7,7 @@
   (9 ottobre, 6 indizi su 8, un tiro sbagliato poi il gol, un aiuto: i
   quadratini li rifà la pagina). Capisce anche i link vecchi ?d=…&q=….
   Il tris (D146): ?s=1010Tx--ox---x = 10 ottobre, le nove caselle (x ❌, o ⭕, - vuota).
-  Il quiz (D149): ?s=1011Qvvxvt = 11 ottobre, una lettera a domanda (v 🟩, x 🟥, t ⏱️).
+  Il quiz (D149): ?s=1011Qvvxvt = 11 ottobre, una lettera a domanda (v 🟩, y 🟨, x 🟥, t ⏱️).
   Il tasto apre l'app sulla sfida del giorno (stadium://sfida, passando
   dall'intent di Android: se l'app non c'è, Chrome apre la pagina dello store).
 -->
@@ -79,14 +79,14 @@
     document.getElementById('invito').innerHTML = 'Un tuo amico ti sfida al <b>tris del giorno</b>: nove caselle, in ognuna un calciatore misterioso. Indovinalo e la casella è tua ❌, sbaglia ed è ⭕. Fai tris!';
   }
   // il quiz: MMGG + Q + una lettera per domanda
-  var z = /^(\d{2})(\d{2})Q([vxt]{1,10})$/.exec(p.get('s') || '');
+  var z = /^(\d{2})(\d{2})Q([vyxt]{1,10})$/.exec(p.get('s') || '');
   var quiz = !!z;
   if (z) {
     var oggiZ = new Date(), annoZ = oggiZ.getFullYear();
     if (Number(z[1]) > oggiZ.getMonth() + 1) annoZ -= 1;
     d = annoZ + '-' + z[1] + '-' + z[2];
-    q = z[3].split('').map(function (k) { return { v: '🟩', x: '🟥', t: '⏱️' }[k]; }).join('');
-    document.getElementById('invito').innerHTML = 'Un tuo amico ti sfida al <b>quiz del giorno</b>: cinque domande uguali per tutti, sui calciatori e sul regolamento, 20 secondi l\'una. Ci vogliono almeno 4 giuste!';
+    q = z[3].split('').map(function (k) { return { v: '🟩', y: '🟨', x: '🟥', t: '⏱️' }[k]; }).join('');
+    document.getElementById('invito').innerHTML = 'Un tuo amico ti sfida al <b>quiz del giorno</b>: cinque domande uguali per tutti, sui calciatori e sul regolamento, 25 secondi l\'una. Ci vogliono almeno 4 giuste!';
   }
   if (/^\d{4}-\d{2}-\d{2}$/.test(d)) {
     var parti = d.split('-');
@@ -95,7 +95,7 @@
   if (q && q.length < 80) {
     document.getElementById('quadratini').textContent = q;
     document.getElementById('spiega').textContent = quiz
-      ? 'Il suo risultato: 🟩 risposta giusta, 🟥 sbagliata, ⏱️ tempo scaduto.'
+      ? 'Il suo risultato: 🟩 risposta giusta, 🟨 giusta al secondo tentativo, 🟥 sbagliata, ⏱️ tempo scaduto.'
       : tris
       ? 'Il suo risultato: ❌ giocatore preso, ⭕ mancato, ⬜ casella non giocata.'
       : 'Il suo risultato: 🟨 indizi aperti, 🟥 tiri sbagliati, 🟩 gol, 💡 aiuti usati.';
