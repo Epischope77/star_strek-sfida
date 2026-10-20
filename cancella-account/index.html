@@ -1,0 +1,61 @@
+<!doctype html>
+<!--
+  STADIUM — come cancellare l'account (strada per lo Store, D103 punto 8, 20/10/2026)
+  Google Play vuole una pagina web dove chiunque legga come cancellare
+  l'account, anche senza l'app installata. Va nel repository PUBBLICO
+  Epischope77/star_strek-sfida, cartella cancella-account/:
+  https://epischope77.github.io/star_strek-sfida/cancella-account/
+  Dall'app la cancellazione è cancella_mio_account() (migrazione 2026-10-20).
+-->
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cancellare l'account</title>
+<style>
+  :root { --sfondo: #081226; --pannello: #0e1f3d; --bordo: #1c3766; --oro: #ffd700; --testo: #ffffff; --tenue: rgba(207,224,255,0.75); }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--sfondo); color: var(--testo); padding: 16px;
+         font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; line-height: 1.55; }
+  main { max-width: 640px; margin: 0 auto; }
+  h1 { color: var(--oro); font-size: 26px; margin: 8px 0 4px; }
+  h2 { color: var(--oro); font-size: 18px; margin: 24px 0 8px; }
+  .data { color: var(--tenue); margin-bottom: 18px; }
+  .scheda { background: var(--pannello); border: 1px solid var(--bordo); border-radius: 14px; padding: 14px 18px; margin-bottom: 12px; }
+  a { color: var(--oro); }
+  ol, ul { padding-left: 22px; }
+</style>
+</head>
+<body>
+<main>
+<h1>Cancellare l'account</h1>
+<div class="data">App Star Strek · Maurizio Serpico</div>
+
+<h2>Dall'app (subito)</h2>
+<div class="scheda">
+  <ol>
+    <li>Apri Star Strek e vai nel <b>Profilo</b>.</li>
+    <li>In fondo tocca <b>Cancella il mio account</b>.</li>
+    <li>Conferma due volte.</li>
+  </ol>
+  <p>Fatto: l'account e i dati spariscono in quel momento.</p>
+</div>
+
+<h2>Senza l'app</h2>
+<div class="scheda">
+  <p>Scrivi a <a href="mailto:starstrek.app@gmail.com?subject=Cancellazione%20account%20Star%20Strek">starstrek.app@gmail.com</a> dall'indirizzo email
+  con cui ti sei registrato, con oggetto <b>"Cancellazione account Star Strek"</b> e il tuo nickname.
+  Cancelliamo l'account entro 30 giorni e ti rispondiamo quando è fatto.</p>
+</div>
+
+<h2>Cosa viene cancellato</h2>
+<ul>
+  <li>il profilo: nickname, email, anno di nascita, nazione, foto, squadra del cuore;</li>
+  <li>card, album, monete e punti esperienza;</li>
+  <li>le partite giocate (anche per l'avversario) e le missioni;</li>
+  <li>i dati tecnici di funzionamento legati a te.</li>
+</ul>
+<p>Non teniamo niente dopo la cancellazione. Maggiori dettagli nell'<a href="../privacy/">informativa privacy</a>.</p>
+</main>
+</body>
+</html>
